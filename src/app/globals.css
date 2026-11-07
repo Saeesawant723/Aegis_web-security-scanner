@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+/* ═══════════ AEGIS//AI Design System ═══════════ */
+
+@theme inline {
+  --color-bg: #070707;
+  --color-panel: #0E0E0E;
+  --color-border: #222222;
+  --color-text: #EDEDED;
+  --color-muted: #777777;
+  --color-accent: #B6FF00;
+  --color-danger: #FF3B30;
+  --color-sev-critical: #FF3B30;
+  --color-sev-high: #FF8A00;
+  --color-sev-medium: #FFD60A;
+  --color-sev-low: #4DA3FF;
+  --color-sev-info: #777777;
+  --font-display: var(--font-bricolage);
+  --font-mono: var(--font-jetbrains);
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #070707;
+  color: #EDEDED;
+  cursor: crosshair;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #070707;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border: 1px solid #222;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B6FF00;
+}
+
+/* ── Selection ── */
+::selection {
+  background: #B6FF00;
+  color: #070707;
+}
+::-moz-selection {
+  background: #B6FF00;
+  color: #070707;
+}
+
+/* ── Film Grain Overlay ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ── Scanlines ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.018;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(237, 237, 237, 0.15) 2px,
+    rgba(237, 237, 237, 0.15) 4px
+  );
+}
+
+/* ── Label Caps (blueprint feel) ── */
+.label-caps {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #777;
+}
+
+/* ── Brutalist Button ── */
+.btn-brutal {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: #B6FF00;
+  color: #070707;
+  border: none;
+  padding: 14px 32px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 4px 4px 0px rgba(182, 255, 0, 0.25);
+  transition: all 80ms ease-out;
+}
+.btn-brutal:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px rgba(182, 255, 0, 0.35);
+}
+.btn-brutal:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(182, 255, 0, 0.15);
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  display: flex;
+  animation: marquee-scroll 45s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Animations ── */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(2.5); }
+}
+
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes scanline-move {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.7; }
+  94% { opacity: 1; }
+  96% { opacity: 0.85; }
+  97% { opacity: 1; }
+}
+
+@keyframes stamp-in {
+  0% { transform: scale(1.8); opacity: 0; }
+  60% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes count-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Corner Bracket Panel ── */
+.corner-bracket {
+  position: relative;
+}
+.corner-bracket .cb-tl,
+.corner-bracket .cb-tr,
+.corner-bracket .cb-bl,
+.corner-bracket .cb-br {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transition: all 200ms ease-out;
+}
+.corner-bracket .cb-tl {
+  top: -1px; left: -1px;
+  border-top: 2px solid #222;
+  border-left: 2px solid #222;
+}
+.corner-bracket .cb-tr {
+  top: -1px; right: -1px;
+  border-top: 2px solid #222;
+  border-right: 2px solid #222;
+}
+.corner-bracket .cb-bl {
+  bottom: -1px; left: -1px;
+  border-bottom: 2px solid #222;
+  border-left: 2px solid #222;
+}
+.corner-bracket .cb-br {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid #222;
+  border-right: 2px solid #222;
+}
+.corner-bracket:hover .cb-tl,
+.corner-bracket:hover .cb-tr,
+.corner-bracket:hover .cb-bl,
+.corner-bracket:hover .cb-br {
+  border-color: #B6FF00;
+  width: 20px;
+  height: 20px;
+}
+
+/* ── Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  body::after { display: none; }
+  body::before { display: none; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
